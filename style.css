@@ -12,9 +12,21 @@ stroke: #000;
 shape-rendering: crispEdges;
 }
 
-.temporary{
+.Display{
     position: absolute; 
     top: 180px;
+    left: 800px;
+}
+
+.Region{
+    position: absolute; 
+    top: 280px;
+    left: 800px;
+}
+
+.Gender{
+    position: absolute; 
+    top: 380px;
     left: 800px;
 }
 
