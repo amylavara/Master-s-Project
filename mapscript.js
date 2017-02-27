@@ -394,7 +394,7 @@ var bound2 = 0;
                 .attr("width", 20)
                 .attr("height", 15)
                 .attr("transform", "rotate(180)")
-                .attr("x", -9)
+                .attr("x", -10)
                 .attr("y", 0)
                 .attr("id", "scaleArrow");
     //Setting the position of the arrow in the map key
