@@ -413,7 +413,7 @@ var bound2 = 0;
                             var districtcolor;
 							var valcolor;
 
-                            if(d.properties.name == "Data Not Available"){
+                            if(d.properties.name == "Pak Occupied Kashmir"){
                                 districtcolor = "fill:\"gray\";opacity:0.1;";
                              }else{
                                  if(display == "Total"){
@@ -462,6 +462,11 @@ var bound2 = 0;
                                     }else{
                                         stnum = tmp;
                                     }
+									
+								if(d.properties.name == "Pak Occupied Kashmir"){
+									stnum = "Not Available";
+								}
+								
 								var table = div.append("table").style("width","150px");
 								
 								var tabledata = table.append("tr");
@@ -470,12 +475,15 @@ var bound2 = 0;
 								
 								tabledata = table.append("tr");
 								tabledata.append("td").text("");
+								if(d.properties.name == "Pak Occupied Kashmir"){
+									tabledata.append("td").text("");
+								}else{
 								tabledata.append("td").text(Math.round((+d.properties[selected]/+d.properties[selected.replace(/OSC/i,"total")]) * 100*100)/100+"%").style("text-align","right");
-							
+								}
 							
 							
                             
-                            if(d.properties.name == "Data Not Available"){
+                            if(d.properties.name == "Pak Occupied Kashmir"){
                                     hoverArrow(0);
                                 }else{
                                     if(display == "Total"){
