@@ -454,7 +454,8 @@ var bound2 = 0;
                                     div.transition()
                                         .duration(200)
                                         .style("opacity", .9);
-                                    div.style("left", "760px")
+                                    console.log(parseInt(d3.select("body").style("width"))/2);
+                                    div.style("left", (parseInt(d3.select("body").style("width"))/2+120)+"px")
                                         .style("top", "400px")
 										.style("border", "0.1px solid black");
                                     div.append("div").text(d.properties.statename+" State").style("text-align","center").style("width","170px");
