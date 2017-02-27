@@ -177,12 +177,7 @@ var bound2 = 0;
             for (var i = 0; i < len; i++) {
                 cur_districts[0].parentElement.removeChild(cur_districts[0]);
             }
-            //console.log(document.getElementsByClassName('state-border'));
-            var cur_districtborder = document.getElementsByClassName('district-border');
-        len = cur_districtborder.length;
-            for (var i = 0; i < len; i++) {
-               cur_districtborder[i].parentElement.removeChild(cur_districtborder[i]);
-            }
+           
 
         var cur_legend = document.getElementsByClassName('key');
         len = cur_legend.length;
@@ -517,19 +512,7 @@ var bound2 = 0;
                                     .style("opacity", 0);
                             });
 
-                    svg.append("path")
-                    .datum(topojson.mesh(districts, districts.objects.Dist))
-                    .attr("class", "district-border")
-                    .attr("d", path);
-        
-                    svg.append("path")
-                    .datum(topojson.mesh(districts, districts.objects.Dist, function(a, b) { return a.properties.statecode !== b.properties.statecode; }))
-                    .attr("class", "state-border")
-                    .attr("d", path);
-                    svg.append("path")
-                    .datum(topojson.mesh(districts, districts.objects.Dist, function(a, b) { return a === b; }))
-                    .attr("class", "state-border")
-                    .attr("d", path);
+                    
 
 
                     svg.append("text")
@@ -550,6 +533,22 @@ var bound2 = 0;
     district();
 
 d3.json("indiaDST.json", function(error, districts) {
+    
+    svg.append("path")
+                    .datum(topojson.mesh(districts, districts.objects.Dist))
+                    .attr("class", "district-border")
+                    .attr("d", path);
+        
+                    svg.append("path")
+                    .datum(topojson.mesh(districts, districts.objects.Dist, function(a, b) { return a.properties.statecode !== b.properties.statecode; }))
+                    .attr("class", "state-border")
+                    .attr("d", path);
+                    svg.append("path")
+                    .datum(topojson.mesh(districts, districts.objects.Dist, function(a, b) { return a === b; }))
+                    .attr("class", "state-border")
+                    .attr("d", path);
+    
+    
 var rect = document.getElementById('gender').getBoundingClientRect();
         console.log(rect.top, rect.right, rect.bottom, rect.left);
         
