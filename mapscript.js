@@ -378,7 +378,14 @@ var bound2 = 0;
     g.call(xAxis).append("text")
     .attr("class", "caption")
     .attr("y", -16)
-    .text("Out Of School Children(OSC) in Millions");
+    .text(function() {
+		if(display == "Total"){
+			return "Out Of School Children(OSC) in Millions";
+		}else{
+			return "Out Of School Children(OSC) in Percent";
+		}
+	
+	});
 
         
     //Creating arrow for map key
@@ -447,9 +454,11 @@ var bound2 = 0;
                                     div.transition()
                                         .duration(200)
                                         .style("opacity", .9);
-                                    div.style("left", (d3.event.pageX) + "px")
-                                        .style("top", (d3.event.pageY - 28) + "px");
-                                    div.append("div").text(d.properties.name).style("text-align","center").style("width","150px");
+                                    div.style("left", "760px")
+                                        .style("top", "400px")
+										.style("border", "0.1px solid black");
+                                    div.append("div").text(d.properties.statename+" State").style("text-align","center").style("width","170px");
+									div.append("div").text(d.properties.name+ " District").style("text-align","center").style("width","170px");
                                     var tmp = "" + d.properties[selected];
                         
                                 var stnum = "";
@@ -467,7 +476,7 @@ var bound2 = 0;
 									stnum = "Not Available";
 								}
 								
-								var table = div.append("table").style("width","150px");
+								var table = div.append("table").style("width","170px");
 								
 								var tabledata = table.append("tr");
 								tabledata.append("td").text("OSC:").style("text-align","left");
