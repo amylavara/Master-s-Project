@@ -1,6 +1,12 @@
 svg {
 font: 10px sans-serif;
 }
+
+option{
+    font-size: 50px;
+}
+
+
 .caption {
 font-weight: bold;
 }
@@ -30,6 +36,13 @@ shape-rendering: crispEdges;
     left: 800px;
 }
 
+.Test{
+    position: absolute; 
+    top: 480px;
+    left: 800px;
+}
+
+
 div.tooltip {   
 position: absolute;
 text-align: center;
@@ -45,14 +58,14 @@ pointer-events: none;
   fill: none;
   stroke: #000;
   stroke-opacity: 1;
-  stroke-width: 0.1;
+  stroke-width: 0.2;
 }
 
 .district-border {
   fill: none;
   stroke: #000;
   stroke-opacity: 1;
-  stroke-width: 0.2;
+  stroke-width: 0.1;
 }
 .foot-links a, .foot-links p{
   display: block;
@@ -182,3 +195,4 @@ a:link {
 .row{
   font-size: 12px;
 }
+
