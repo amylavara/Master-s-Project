@@ -177,6 +177,24 @@ var bound2 = 0;
             for (var i = 0; i < len; i++) {
                 cur_districts[0].parentElement.removeChild(cur_districts[0]);
             }
+        
+         var cur_districtborder = document.getElementsByClassName('district-border');
+        len = cur_districtborder.length;
+            for (var i = 0; i < len; i++) {
+               cur_districtborder[i].parentElement.removeChild(cur_districtborder[i]);
+            }
+        
+         var cur_stateborder = document.getElementsByClassName('state-border');
+        len = cur_stateborder.length;
+            for (var i = 0; i < len; i++) {
+               cur_stateborder[i].parentElement.removeChild(cur_stateborder[i]);
+            }
+        
+        var cur_countryborder = document.getElementsByClassName('country-border');
+        len = cur_countryborder.length;
+            for (var i = 0; i < len; i++) {
+               cur_countryborder[i].parentElement.removeChild(cur_countryborder[i]);
+            }
            
 
         var cur_legend = document.getElementsByClassName('key');
@@ -377,7 +395,7 @@ var bound2 = 0;
 		if(display == "Total"){
 			return "Out Of School Children(OSC) in Millions";
 		}else{
-			return "Out Of School Children(OSC) in Percent";
+			return "Out Of School Children(OSC) in %";
 		}
 	
 	});
@@ -512,7 +530,20 @@ var bound2 = 0;
                                     .style("opacity", 0);
                             });
 
-                    
+                    svg.append("path")
+                    .datum(topojson.mesh(districts, districts.objects.Dist))
+                    .attr("class", "district-border")
+                    .attr("d", path);
+        
+                    svg.append("path")
+                    .datum(topojson.mesh(districts, districts.objects.Dist, function(a, b) { return a.properties.statecode !== b.properties.statecode; }))
+                    .attr("class", "state-border")
+                    .attr("d", path);
+        
+                    svg.append("path")
+                    .datum(topojson.mesh(districts, districts.objects.Dist, function(a, b) { return a === b; }))
+                    .attr("class", "country-border")
+                    .attr("d", path);
 
 
                     svg.append("text")
@@ -534,19 +565,7 @@ var bound2 = 0;
 
 d3.json("indiaDST.json", function(error, districts) {
     
-    svg.append("path")
-                    .datum(topojson.mesh(districts, districts.objects.Dist))
-                    .attr("class", "district-border")
-                    .attr("d", path);
-        
-                    svg.append("path")
-                    .datum(topojson.mesh(districts, districts.objects.Dist, function(a, b) { return a.properties.statecode !== b.properties.statecode; }))
-                    .attr("class", "state-border")
-                    .attr("d", path);
-                    svg.append("path")
-                    .datum(topojson.mesh(districts, districts.objects.Dist, function(a, b) { return a === b; }))
-                    .attr("class", "state-border")
-                    .attr("d", path);
+    
     
     
 var rect = document.getElementById('gender').getBoundingClientRect();
@@ -595,6 +614,16 @@ var rect = document.getElementById('gender').getBoundingClientRect();
 		bound1=0;
 		bound2=0;
         district();
+        updatelines();
+        
     
 });
 });
+
+function updatelines() {
+    d3.json("indiaDST.json", function(error, districts) {
+        var val1 = d3.entries(topojson.feature(districts, districts.objects.Dist).features);
+        
+    });
+    
+}
