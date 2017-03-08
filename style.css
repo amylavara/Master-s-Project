@@ -58,7 +58,7 @@ pointer-events: none;
   fill: none;
   stroke: #000;
   stroke-opacity: 1;
-  stroke-width: 0.2;
+  stroke-width: 0.4;
 }
 
 .district-border {
@@ -67,6 +67,14 @@ pointer-events: none;
   stroke-opacity: 1;
   stroke-width: 0.1;
 }
+
+.country-border {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: 1;
+  stroke-width: 0.4;
+}
+
 .foot-links a, .foot-links p{
   display: block;
   color: rgb(63, 63, 63);
