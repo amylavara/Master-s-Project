@@ -659,7 +659,7 @@ function updatelines() {
                 }else{
                     document.getElementById('line1').innerHTML = d.name + " State has " + d.numdistricts + " districts";
                 }
-                    document.getElementById('line2').innerHTML = "Average Out of School children is " + Math.round(d.OSCpersons/d.totalpersons * 100) + "%";
+                    document.getElementById('line2').innerHTML = "Average Out of School children is " + Math.round(d.OSCpersons/d.totalpersons * 10000)/100 + "%";
                     var rural = Math.round(d.OSCruralpersons/d.totalruralpersons * 10000)/100;
                     var urban = Math.round(d.OSCurbanpersons/d.totalurbanpersons * 10000)/100;
                     var male = Math.round(d.OSCmale/d.totalmale * 10000)/100;
