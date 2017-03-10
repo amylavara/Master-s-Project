@@ -12,24 +12,27 @@
     var path = d3.geo.path()
     .projection(projection);
 
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#svgcontainer").append("svg")
         .attr("xmlns", "http://www.w3.org/2000/svg")
         .attr("width", width)
         .attr("height", height)
         .attr("id", "#map");
 
-svg.append("foreignObject")
+var selstate = svg.append("foreignObject")
         .attr("x","100")
-        .attr("y","130")
-        .attr("width","100")
+        .attr("y","115")
+        .attr("width","120")
         .attr("height","25")
-        .append("xhtml:body")
-        .append("select")
+        .append("xhtml:body");
+        selstate.append("p")
+        .attr("style","font-weight: bold;font-size:14px;margin:0")
+        .text("Select State or UT");
+        selstate.append("select")
         .attr("id","selectstate")
         .attr("style","width:120px;font-size:15px");
 
         // Append Div for tooltip to SVG
-    var div = d3.select("body")
+    var div = d3.select("#svgcontainer")
                 .append("div")
                 .attr("class", "tooltip")
                 .style("opacity", 0);
@@ -57,11 +60,11 @@ var bound2 = 0;
     var y0; //y offset
 
     if(bgid=="display"){
-        y0= 40;
+        y0= 30;
     }else if(bgid=="region"){
-        y0= 70;
+        y0= 60;
     }else{
-        y0= 100;
+        y0= 90;
     }
 
     //colors for different button states 
@@ -362,6 +365,7 @@ var bound2 = 0;
 
         //Legend for color code
     var g = svg.append("g")
+        .attr("id", "legend")
         .attr("class", "key")
         .attr("transform", "translate(380,70)");
     g.selectAll("rect")
@@ -467,10 +471,13 @@ var bound2 = 0;
                                     div.transition()
                                         .duration(200)
                                         .style("opacity", .9);
-                                    console.log(parseInt(d3.select("body").style("width"))/2);
-                                    div.style("left", (parseInt(d3.select("body").style("width"))/2+120)+"px")
-                                        .style("top", "400px")
-										.style("border", "0.1px solid black");
+                                    var legendbounds = document.getElementById("legend").getBoundingClientRect();
+                                    console.log(legendbounds);
+                                    div.style("position","relative")
+                                        .style("left","500px")
+                                        .style("top","-240px")
+                                        .style("width","175px")
+                                        .style("border", "0.1px solid black");
                                     div.append("div").text(d.properties.statename+" State").style("text-align","center").style("width","170px");
 									div.append("div").text(d.properties.name+ " District").style("text-align","center").style("width","170px");
                                     var tmp = "" + d.properties[selected];
@@ -562,6 +569,7 @@ var bound2 = 0;
     }
 
     district();
+    updatelines();
 
 d3.json("indiaDST.json", function(error, districts) {
     
@@ -578,7 +586,7 @@ var rect = document.getElementById('gender').getBoundingClientRect();
         val1.forEach(function(state, index) {
             //console.log(val2.indexOf(state.value.properties.statename));
             if(val2.indexOf(state.value.properties.statename) == -1){
-                //console.log(state.value.properties.statename);
+                console.log(state.value.properties.statename);
                 val2.push(state.value.properties.statename);
             }
         });
@@ -604,6 +612,7 @@ var rect = document.getElementById('gender').getBoundingClientRect();
             
             opt.value = state;
             fragment.appendChild(opt);
+            
         });
 
         sel.appendChild(fragment);
@@ -621,9 +630,59 @@ var rect = document.getElementById('gender').getBoundingClientRect();
 });
 
 function updatelines() {
-    d3.json("indiaDST.json", function(error, districts) {
-        var val1 = d3.entries(topojson.feature(districts, districts.objects.Dist).features);
         
-    });
+        d3.csv("india.csv", function(data) {
+          data.forEach(function(d) {
+            if((d.name == statename) || (statename == "No Selection" && d.name == "India")){
+                d.numdistricts = +d.numdistricts
+                d.totalpersons = +d.totalpersons
+                d.totalmale = +d.totalmale
+                d.totalfemale = +d.totalfemale
+                d.totalruralpersons = +d.totalruralpersons
+                d.totalruralmale = +d.totalruralmale
+                d.totalruralfemale = +d.totalruralfemale
+                d.totalurbanpersons = +d.totalurbanpersons
+                d.totalurbanmale = +d.totalurbanmale
+                d.totalurbanfemale = +d.totalurbanfemale
+                d.OSCpersons = +d.OSCpersons
+                d.OSCmale = +d.OSCmale
+                d.OSCfemale = +d.OSCfemale
+                d.OSCruralpersons = +d.OSCruralpersons
+                d.OSCruralmale = +d.OSCruralmale
+                d.OSCruralfemale = +d.OSCruralfemale
+                d.OSCurbanpersons = +d.OSCurbanpersons
+                d.OSCurbanmale = +d.OSCurbanmale
+                d.OSCurbanfemale = +d.OSCurbanfemale
+                
+                if(d.name == "India"){
+                    document.getElementById('line1').innerHTML = "India has 35 states and " + d.numdistricts + " districts";
+                }else{
+                    document.getElementById('line1').innerHTML = d.name + " State has " + d.numdistricts + " districts";
+                }
+                    document.getElementById('line2').innerHTML = "Average Out of School children is " + Math.round(d.OSCpersons/d.totalpersons * 100) + "%";
+                    var rural = Math.round(d.OSCruralpersons/d.totalruralpersons * 10000)/100;
+                    var urban = Math.round(d.OSCurbanpersons/d.totalurbanpersons * 10000)/100;
+                    var male = Math.round(d.OSCmale/d.totalmale * 10000)/100;
+                    var female = Math.round(d.OSCfemale/d.totalfemale * 10000)/100;
+                    if(rural > urban){
+                        document.getElementById('line3').innerHTML = "The rural Out of School averege is greater than urban Out of School average by " + Math.round((rural-urban)*100)/100 + "%";
+                    }else if(rural == urban){
+                        document.getElementById('line3').innerHTML = "The rural and urban Out of School averages are equal";
+                    }else{
+                        document.getElementById('line3').innerHTML = "The rural Out of School averege is less than urban Out of School average by " + Math.round((urban-rural)*100)/100 + "%";
+                    }
+                    
+                    if(male > female){
+                        document.getElementById('line4').innerHTML = "The male Out of School averege is greater than female Out of School average by " + Math.round((male-female)*100)/100 + "%";
+                    }else if(male == female){
+                        document.getElementById('line4').innerHTML = "The male and female Out of School averages are equal";
+                    }else{
+                        document.getElementById('line4').innerHTML = "The male Out of School averege is less than female Out of School average by " + Math.round((female-male)*100)/100 + "%";
+                    }
+                    
+            }
+            
+          });
+        });
     
 }
