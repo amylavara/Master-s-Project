@@ -655,9 +655,9 @@ function updatelines() {
                 d.OSCurbanfemale = +d.OSCurbanfemale
                 
                 if(d.name == "India"){
-                    document.getElementById('line1').innerHTML = "India has 35 states and " + d.numdistricts + " districts";
+                    document.getElementById('line1').innerHTML = "India has 29 states and 7 union territories which have a total of " + d.numdistricts + " districts";
                 }else{
-                    document.getElementById('line1').innerHTML = d.name + " State has " + d.numdistricts + " districts";
+                    document.getElementById('line1').innerHTML = d.name + " has " + d.numdistricts + " districts";
                 }
                     document.getElementById('line2').innerHTML = "Average Out of School children is " + Math.round(d.OSCpersons/d.totalpersons * 10000)/100 + "%";
                     var rural = Math.round(d.OSCruralpersons/d.totalruralpersons * 10000)/100;
