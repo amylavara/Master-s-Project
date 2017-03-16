@@ -195,13 +195,13 @@ d3.json("indiaDST.json", function (error, districts) {
 		}
 
 		if (d.properties.name == "Pak Occupied Kashmir") {
-			hoverArrow(0);
+			hoverArrow(x.domain()[0]);
 		} else {
 			if (display == "Total") {
 				hoverArrow(+d.properties[selected] * 0.0001);
 			} else {
 				if (+d.properties[selected.replace(/OSC/i, "total")] == 0) {
-					hoverArrow(0);
+					hoverArrow(x.domain()[0]);
 				} else {
 					hoverArrow((+d.properties[selected] / +d.properties[selected.replace(/OSC/i, "total")]) * 100);
 				}
@@ -216,7 +216,7 @@ d3.json("indiaDST.json", function (error, districts) {
 		.duration(0)
 		.style("opacity", 0)
 		.style("margin-bottom", "0px");
-		hoverArrow(0);
+		hoverArrow(x.domain()[0]);
 	}
 
 	//Function to create district split map of India
