@@ -23,7 +23,7 @@ var selstate = svg.append("foreignObject")
 	.append("xhtml:body");
 selstate.append("p")
 .attr("style", "font-weight: bold;font-size:14px;margin:0")
-.text("Select State or UT");
+.text("Select State");
 selstate.append("select")
 .attr("id", "selectstate")
 .attr("style", "width:120px;font-size:15px");
@@ -602,11 +602,11 @@ d3.json("indiaDST.json", function (error, districts) {
 						d.OSCurbanfemale = +d.OSCurbanfemale
 
 						if (d.name == "India") {
-							document.getElementById('line1').innerHTML = "India has 29 states and 7 union territories which have a total of " + d.numdistricts + " districts";
+							document.getElementById('line1').innerHTML = "India has 29 states and 7 union territories which have a total of " + d.numdistricts + " districts.";
 						} else {
-							document.getElementById('line1').innerHTML = d.name + " has " + d.numdistricts + " districts";
+							document.getElementById('line1').innerHTML = d.name + " has " + d.numdistricts + " districts.";
 						}
-						document.getElementById('line2').innerHTML = "Total Out of School children is: " + getnumasstring("" + d.OSCpersons) + " (" + Math.round(d.OSCpersons / d.totalpersons * 10000) / 100 + "%)";
+						document.getElementById('line2').innerHTML = "Total Out of School children: " + getnumasstring("" + d.OSCpersons) + " (" + Math.round(d.OSCpersons / d.totalpersons * 10000) / 100 + "%)";
 					var rural = Math.round(d.OSCruralpersons / d.totalruralpersons * 10000) / 100;
 					var urban = Math.round(d.OSCurbanpersons / d.totalurbanpersons * 10000) / 100;
 					var male = Math.round(d.OSCmale / d.totalmale * 10000) / 100;
