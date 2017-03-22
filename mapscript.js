@@ -325,7 +325,7 @@ d3.json("indiaDST.json", function (error, districts) {
 		.attr("y", -16)
 		.text(function () {
 			if (display == "Total") {
-				return "Out Of School Children(OSC) in Millions";
+				return "Out Of School Children(OSC) in Ten Thousand";
 			} else {
 				return "Out Of School Children(OSC) in %";
 			}
